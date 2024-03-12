@@ -1,5 +1,5 @@
 <div>
-  <div>作成したユーザー：<%= link_to @post.user.nickname, "#" %></div><br>
+  <div>作成したユーザー：<%= @post.user.nickname %></div><br>
   <div>お気に入りスポット：<%= @post.address %></div><br>
   <div>メモ：<%= @post.text %></div><br>
   <% if @post.image.present? %>
@@ -14,8 +14,10 @@
 <div class="map" id="map"></div>
 
 <div>
-  <%= link_to "編集", edit_post_path(@post.id) %>/
-  <%= link_to "削除", post_path(@post.id), data:{ turbo_method: :delete } %>
+  <% if user_signed_in? %>
+    <%= link_to "編集", edit_post_path(@post.id) %>/
+    <%= link_to "削除", post_path(@post.id), data:{ turbo_method: :delete } %>
+  <% end %>
 </div>
 
 <script type="text/javascript">
