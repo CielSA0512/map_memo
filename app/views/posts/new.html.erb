@@ -1,0 +1,7 @@
+<%= form_with model: @post, local: true do |f| %>
+  <div class="form-group">
+    <%= f.label :address, '場所' %> 
+    <%= f.text_field :address, autofocus: true, class: "form-control" %> 
+  </div>
+    <%= f.submit '投稿する' %> 
+<% end %>

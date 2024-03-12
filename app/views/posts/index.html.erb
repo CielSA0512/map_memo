@@ -2,34 +2,25 @@
 
 <h2>地図</h2>
 
-<%# <%= link_to "新規投稿", new_posts_path %>
+<%= link_to "新規投稿", new_post_path %>
 
-<%#<div>
+<div>
   <% @posts.each do |post| %>
-    <%#<div>
-      <%= link_to post.address,  %>
-    <%#</div>
-  <%#<% end %>
-<%#</div> %>
+    <div>
+      お気に入りスポット:<%= link_to post.address, post_path(post.id) %>
+    </div>
+  <% end %>
+</div>
 
-<input id="address" type="textbox" value="GeekSalon">
+<%# <input id="address" type="textbox" value="GeekSalon">
 <input type="button" value="Encode" onclick="codeAddress()">
 
 <div id="display">何かが表示される</div>
 <div class= map id="map"></div>
 
+
 <div type="text/javascript">
-  <script>
-    function initMap(){
-        let map = new google.maps.Map(document.getElementById('map'),{
-        center: {lat: 40.7828, lng: -73.9653},
-        zoom: 15
-      });
-    };
-  </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY'] %>&callback=initMap" async defer>// js?key= ~ &callbackの「~」の部分に「YOUR_API_KEY」を入力</script>
-</div>
-<%# <script>
+<script>
   let map
   let geocoder
 
@@ -72,4 +63,6 @@
       };
     });
   };
-</script> %>
+</script>  
+</div> %>
+
