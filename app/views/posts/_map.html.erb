@@ -1,3 +1,9 @@
+<div>
+  作成したユーザー：<%= link_to @post.user.nickname, "#" %><br>
+  お気に入りスポット：<%= @post.address %><br>
+  メモ：<%= @post.text %>
+</div>
+
 <div class="map" id="map"></div>
 
 <script type="text/javascript">
