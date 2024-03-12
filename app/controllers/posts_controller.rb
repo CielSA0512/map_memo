@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_post, only: [:edit,:show]
+  before_action :move_to_index, only: [:edit, :destroy]
 
   def index
     @posts = Post.all
@@ -14,25 +16,43 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to root_path
     else
-      render action: :new
+      render :new
     end
   end
 
-  # def edit
-  # end
+  def edit
+  end
 
-  # def update
-  # end
+  def update
+    post = Post.find(params[:id])
+    if post.update(post_params)
+      redirect_to post_path(post.id)
+    else
+      render :edit
+    end
+  end
 
-  # def destroy
-  # end
+  def destroy
+    post = Post.find(params[:id])
+    post.destroy
+    redirect_to root_path
+  end
 
   def show
-    @post = Post.find(params[:id])
   end
 
   private
   def post_params
-    params.require(:post).permit(:address, :latitude, :longitude, :text).merge(user_id: current_user.id)
+    params.require(:post).permit(:address, :latitude, :longitude, :text, :image).merge(user_id: current_user.id)
+  end
+
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  def move_to_index
+    return if current_user.id == @post.user_id
+
+    redirect_to :index
   end
 end
