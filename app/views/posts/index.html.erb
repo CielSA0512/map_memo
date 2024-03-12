@@ -1,75 +1,15 @@
-<h1>マップメモアプリ</h1>
+<p>自分専用のお気に入りスポットを記録しよう！</p>
 
-<h2>地図</h2>
+<% if user_signed_in? %>
+  <div>
+    <%= link_to "新規投稿", new_post_path %>
+  </div>
+<% end %>
 
-<%# <%= link_to "新規投稿", new_posts_path %>
-
-<%#<div>
+<div>
   <% @posts.each do |post| %>
-    <%#<div>
-      <%= link_to post.address,  %>
-    <%#</div>
-  <%#<% end %>
-<%#</div> %>
-
-<input id="address" type="textbox" value="GeekSalon">
-<input type="button" value="Encode" onclick="codeAddress()">
-
-<div id="display">何かが表示される</div>
-<div class= map id="map"></div>
-
-<div type="text/javascript">
-  <script>
-    function initMap(){
-        let map = new google.maps.Map(document.getElementById('map'),{
-        center: {lat: 40.7828, lng: -73.9653},
-        zoom: 15
-      });
-    };
-  </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY'] %>&callback=initMap" async defer>// js?key= ~ &callbackの「~」の部分に「YOUR_API_KEY」を入力</script>
+    <div>
+      お気に入りスポット:<%= link_to post.address, post_path(post.id) %>
+    </div>
+  <% end %>
 </div>
-<%# <script>
-  let map
-  let geocoder
-
-  const display = document.getElementById("display");
-
-  function initMap(){
-    geocoder = new google.maps.Geocoder()
-
-    map = new google.maps.Map(document.getElementById("map"), {
-      //latが緯度、lngが経度を示す
-      center: {lat: 40.7828, lng: -73.9653},
-      //数値は0~21まで指定できる。数値が大きいほど拡大される
-      zoom: 12
-    });
-
-    marker = new google.maps.Marker({
-      //positionに指定した座標にピンを表示させる
-      position: {lat: 40.7828, lng: -73.9653},
-      map: map
-    });
-  };
-    //検索フォームのボタンが押されたときに実行される
-  function codeAddress(){
-    //検索フォームの入力内容を取得
-    let inputAddress = document.getElementById('address').value;
-
-    geocoder.geocode({'address': inputAddress}, function(results, status){
-      //該当する検索結果がヒットした時に、地図の中心を検索結果の緯度経度に更新する
-      if (status == 'OK') {
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
-        });
-
-        display.textContent = "検索結果:" + results[0].geometry.location
-      } else {
-        //検索結果が何もなかった場合に表示
-        alert('該当する結果がありませんでした:' + status);
-      };
-    });
-  };
-</script> %>

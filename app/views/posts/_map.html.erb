@@ -1,0 +1,48 @@
+<div>
+  <div>作成したユーザー：<%= link_to @post.user.nickname, "#" %></div><br>
+  <div>お気に入りスポット：<%= @post.address %></div><br>
+  <div>メモ：<%= @post.text %></div><br>
+  <% if @post.image.present? %>
+    <div>思い出写真：</div>
+    <div class="item-box-img">
+      <%= image_tag @post.image, class: "item-img" %>
+    </div>
+  <% end %>
+</div>
+
+<div>思い出の場所：</div>
+<div class="map" id="map"></div>
+
+<div>
+  <%= link_to "編集", edit_post_path(@post.id) %>/
+  <%= link_to "削除", post_path(@post.id), data:{ turbo_method: :delete } %>
+</div>
+
+<script type="text/javascript">
+  function initMap() {
+    var test ={lat: <%= @post.latitude %>, lng: <%= @post.longitude %>};
+    var map = new google.maps.Map(document.getElementById('map'), {
+        center: test,
+        zoom: 15
+    });
+    var transitLayer = new google.maps.TransitLayer();
+    transitLayer.setMap(map);
+
+    var contentString = '住所: <%= @post.address %>'
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+
+    var marker = new google.maps.Marker({
+        position: test,
+        map: map,
+        title: contentString
+    });
+
+    marker.addListener('click', function() {
+        infowindow.open(map, marker);
+    });
+  };
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY'] %>&callback=initMap" async defer></script>
