@@ -1,24 +1,4 @@
-<div>
-  <div>作成したユーザー：<%= @post.user.nickname %></div><br>
-  <div>お気に入りスポット：<%= @post.address %></div><br>
-  <div>メモ：<%= @post.text %></div><br>
-  <% if @post.image.present? %>
-    <div>思い出写真：</div>
-    <div class="item-box-img">
-      <%= image_tag @post.image, class: "item-img" %>
-    </div>
-  <% end %>
-</div>
-
-<div>思い出の場所：</div>
 <div class="map" id="map"></div>
-
-<div>
-  <% if user_signed_in? %>
-    <%= link_to "編集", edit_post_path(@post.id) %>/
-    <%= link_to "削除", post_path(@post.id), data:{ turbo_method: :delete } %>
-  <% end %>
-</div>
 
 <script type="text/javascript">
   function initMap() {
