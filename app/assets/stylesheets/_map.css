@@ -1,9 +1,4 @@
-.item-box-img{
-  width: 100vw;
-  height: 400px;
-}
-
-.item-img{
-  width: 250px;
-  height: auto;
+.map{
+  height: 600px;
+  width: 600px; 
 }
