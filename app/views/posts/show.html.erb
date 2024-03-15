@@ -1,9 +1,9 @@
-<div>
+<div class="main">
 
   <div>
-    <div>作成したユーザー：<%= @post.user.nickname %></div><br>
+    <div>作成したユーザー：<%= link_to @post.user.nickname, user_path(@user.id) %></div><br>
     <div>お気に入りスポット：<%= @post.address %></div><br>
-    <div>メモ：<%= @post.text %></div><br>
+    <div>コメント：<%= @post.text %></div><br>
     <% if @post.image.present? %>
       <div>思い出写真：</div>
       <div class="item-box-img">

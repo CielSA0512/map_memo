@@ -1,15 +1,15 @@
-<p>自分専用のお気に入りスポットを記録しよう！</p>
+<div class="main">
+  <p>お気に入りスポットを記録しよう！</p>
 
-<% if user_signed_in? %>
-  <div>
-    <%= link_to "新規投稿", new_post_path %>
-  </div>
-<% end %>
-
-<div>
-  <% @posts.each do |post| %>
+  <% if user_signed_in? %>
     <div>
-      お気に入りスポット:<%= link_to post.address, post_path(post.id) %>
+      <%= link_to "新規投稿", new_post_path %>
     </div>
   <% end %>
+  <h2>みんなのお気に入りスポット一覧</h2>
+  <div>
+    <% @posts.each do |post| %>
+      <%= render partial: "posts/post", locals: { post: post } %>
+    <% end %>
+  </div>
 </div>
